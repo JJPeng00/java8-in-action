@@ -26,6 +26,9 @@ public class FilteringApples {
 
         System.out.println(filterApplesByColor(inventory, "red"));
 
+        System.out.println(filterApplesByWeight(inventory, 150));
+        System.out.println(filterApplesByWeight(inventory, 110));
+
     }
 
     private static List<Apple> initInventory() {
@@ -77,6 +80,16 @@ public class FilteringApples {
         List<Apple> result = new ArrayList<>();
         for (Apple apple : inventory) {
             if (apple.getColor().equals(color)) {
+                result.add(apple);
+            }
+        }
+        return result;
+    }
+
+    public static List<Apple> filterApplesByWeight(List<Apple> inventory, int weight) {
+        List<Apple> result = new ArrayList<>();
+        for (Apple apple : inventory) {
+            if (apple.getWeight() > weight) {
                 result.add(apple);
             }
         }
