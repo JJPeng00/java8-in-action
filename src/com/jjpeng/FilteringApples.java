@@ -24,6 +24,8 @@ public class FilteringApples {
 
         System.out.println(filterApples(inventory, apple -> "red".equals(apple.getColor()) || apple.getWeight() > 80));
 
+        System.out.println(filterApplesByColor(inventory, "red"));
+
     }
 
     private static List<Apple> initInventory() {
@@ -65,6 +67,16 @@ public class FilteringApples {
         List<Apple> result = new ArrayList<>();
         for (Apple apple : inventory) {
             if (predicate.test(apple)) {
+                result.add(apple);
+            }
+        }
+        return result;
+    }
+
+    public static List<Apple> filterApplesByColor(List<Apple> inventory, String color) {
+        List<Apple> result = new ArrayList<>();
+        for (Apple apple : inventory) {
+            if (apple.getColor().equals(color)) {
                 result.add(apple);
             }
         }
