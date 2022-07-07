@@ -21,6 +21,9 @@ public class FilteringApples {
                 return apple.getWeight() > 100;
             }
         }));
+
+        //使用Lambda表达式
+        System.out.println(filterApples(inventory, apple -> apple.getWeight() > 100));
     }
 
     private static List<Apple> initInventory() {
