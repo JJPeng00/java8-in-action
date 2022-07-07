@@ -13,6 +13,14 @@ public class FilteringApples {
 
         System.out.println(filterApples(inventory, new AppleHeavyWeightPredicate()));
         System.out.println(filterApples(inventory, new AppleHeavyWeightPredicate()));
+
+        //使用匿名内部类，免去创建一个新的实现类的麻烦
+        System.out.println(filterApples(inventory, new ApplePredicate() {
+            @Override
+            public boolean test(Apple apple) {
+                return apple.getWeight() > 100;
+            }
+        }));
     }
 
     private static List<Apple> initInventory() {
