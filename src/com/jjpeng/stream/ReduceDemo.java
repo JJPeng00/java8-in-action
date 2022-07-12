@@ -17,6 +17,17 @@ public class ReduceDemo {
         Optional<Integer> optional = sumByReduceOptional(new ArrayList<>());
         System.out.println(optional.orElse(0));
 
+        //求最大值
+        Optional<Integer> max = maxByReduce(numbers);
+        System.out.println(max.orElse(0));
+        Optional<Integer> max1 = maxByReduce(new ArrayList<>());
+        System.out.println(max1.orElse(0));
+
+        //求最小值
+        Optional<Integer> min = minByReduce(numbers);
+        System.out.println(min.orElse(0));
+        Optional<Integer> min1 = minByReduce(new ArrayList<>());
+        System.out.println(min1.orElse(0));
     }
 
     private static int sumByForEach(List<Integer> numbers) {
@@ -50,6 +61,19 @@ public class ReduceDemo {
     private static Optional<Integer> sumByReduceOptional(List<Integer> numbers) {
         return numbers.stream()
                 .reduce(Integer::sum);
+    }
+
+    //规约求最大值
+    private static Optional<Integer> maxByReduce(List<Integer> numbers) {
+        return numbers.stream()
+                //(a, b) -> a > b ? a : b
+                .reduce(Integer::max);
+    }
+
+    private static Optional<Integer> minByReduce(List<Integer> numbers) {
+        return numbers.stream()
+                //(a, b) -> a < b ? a : b
+                .reduce(Integer::min);
     }
     
 }
