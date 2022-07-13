@@ -4,7 +4,9 @@ import com.jjpeng.practice.domain.Trader;
 import com.jjpeng.practice.domain.Transaction;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Solution {
     public static void main(String[] args) {
@@ -24,7 +26,13 @@ public class Solution {
         );
 
         //Question:
-        //todo: 找出2011年发生的所有交易，并按交易额排序（从低到高）
+        //找出2011年发生的所有交易，并按交易额排序（从低到高）
+        List<Transaction> result1 = transactions.stream()
+                .filter(t -> t.getYear() == 2011)
+                .sorted(Comparator.comparing(Transaction::getValue))
+                .collect(Collectors.toList());
+        System.out.println("找出2011年发生的所有交易，并按交易额排序（从低到高）:");
+        System.out.print(result1);
         //todo: 交易员都在哪些不同的城市工作过？
         //todo: 查找所有来自于剑桥的交易员，并按姓名排序
         //todo: 返回所有交易员的姓名字符串，按字母顺序排序
