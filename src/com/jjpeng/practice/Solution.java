@@ -47,8 +47,25 @@ public class Solution {
         System.out.println(result2);
         System.out.println(result3);
 
-        //todo: 查找所有来自于剑桥的交易员，并按姓名排序
-        //todo: 返回所有交易员的姓名字符串，按字母顺序排序
+        //查找所有来自于剑桥的交易员，并按姓名排序
+        List<Trader> result4 = transactions.stream()
+                .map(Transaction::getTrader)
+                .filter(trader -> trader.getCity().equals("Cambridge"))
+                .distinct()
+                .sorted(Comparator.comparing(Trader::getName))
+                .collect(Collectors.toList());
+        System.out.println("查找所有来自于剑桥的交易员，并按姓名排序:");
+        System.out.println(result4);
+
+        //返回所有交易员的姓名字符串，按字母顺序排序
+        String result5 = transactions.stream()
+                .map(transaction -> transaction.getTrader().getName())
+                .distinct()
+                .sorted()
+                .reduce("", (a, b) -> a + b);
+        System.out.println("返回所有交易员的姓名字符串，按字母顺序排序:");
+        System.out.println(result5);
+
         //todo: 有没有交易员是在米兰工作的？
         //todo: 打印生活在剑桥的交易员的所有交易额
         //todo: 所有交易中，最高的交易额是多少？
