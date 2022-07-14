@@ -66,7 +66,11 @@ public class Solution {
         System.out.println("返回所有交易员的姓名字符串，按字母顺序排序:");
         System.out.println(result5);
 
-        //todo: 有没有交易员是在米兰工作的？
+        //有没有交易员是在米兰工作的？
+        boolean result6 = transactions.stream()
+                .anyMatch(transaction -> transaction.getTrader().getCity().equals("Milan"));
+        System.out.println(result6);
+
         //todo: 打印生活在剑桥的交易员的所有交易额
         //todo: 所有交易中，最高的交易额是多少？
         //todo: 找到交易额最小的交易
