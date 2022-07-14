@@ -6,6 +6,7 @@ import com.jjpeng.practice.domain.Transaction;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -71,9 +72,26 @@ public class Solution {
                 .anyMatch(transaction -> transaction.getTrader().getCity().equals("Milan"));
         System.out.println(result6);
 
-        //todo: 打印生活在剑桥的交易员的所有交易额
-        //todo: 所有交易中，最高的交易额是多少？
-        //todo: 找到交易额最小的交易
+        //打印生活在剑桥的交易员的所有交易额
+        transactions.stream()
+                .filter(transaction -> transaction.getTrader().getCity().equals("Cambridge"))
+                .map(Transaction::getValue)
+                .forEach(System.out::println);
+
+        //所有交易中，最高的交易额是多少？
+        Optional<Integer> max = transactions.stream()
+                .map(Transaction::getValue)
+                .reduce(Integer::max);
+        System.out.println(max);
+
+        //找到交易额最小的交易
+        Optional<Transaction> minByReduce = transactions.stream()
+                .reduce((a, b) -> a.getValue() < b.getValue() ? a : b);
+        System.out.println(minByReduce);
+
+        Optional<Transaction> min = transactions.stream()
+                .min(Comparator.comparing(Transaction::getValue));
+        System.out.println(min);
 
     }
 }
