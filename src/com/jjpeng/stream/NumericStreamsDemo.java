@@ -1,6 +1,7 @@
 package com.jjpeng.stream;
 
 import java.util.List;
+import java.util.OptionalInt;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -18,5 +19,11 @@ public class NumericStreamsDemo {
         IntStream unboxedStream = menu.stream()
                 .mapToInt(Dish::getCalories);
         Stream<Integer> boxed = unboxedStream.boxed();
+
+        //与上面的sum方法包含一个默认0值不同的是，max不能有默认值，可以使用特化的Optional来接收该值
+        OptionalInt max = menu.stream()
+                .mapToInt(Dish::getCalories)
+                .max();
+        System.out.println(max.orElse(2));
     }
 }
