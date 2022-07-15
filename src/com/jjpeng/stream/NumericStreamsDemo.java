@@ -25,5 +25,17 @@ public class NumericStreamsDemo {
                 .mapToInt(Dish::getCalories)
                 .max();
         System.out.println(max.orElse(2));
+
+        //生成的数值范围不包括结尾的100
+        long range = IntStream.range(1, 100)
+                .filter(a -> a % 2 == 0)
+                .count();
+        System.out.println(range);
+
+        //生成的数值范围包括结尾的100
+        long rangeClosed = IntStream.rangeClosed(1, 100)
+                .filter(a -> a % 2 == 0)
+                .count();
+        System.out.println(rangeClosed);
     }
 }
