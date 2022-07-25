@@ -1,11 +1,15 @@
 package com.jjpeng.collect.domain;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class GroupDemo {
-    enum CaloricLevel { DIET, NORMAL, FAT }
+    enum CaloricLevel {DIET, NORMAL, FAT}
 
     public static void main(String[] args) {
         List<Dish> dishes = Dish.buildList();
@@ -28,5 +32,18 @@ public class GroupDemo {
             else if (it.getCalories() <= 700) return CaloricLevel.NORMAL;
             else return CaloricLevel.FAT;
         }))));
+
+        //对分组后的数据进行收集
+        System.out.println("-------collect after group");
+        System.out.println(dishes.stream().collect(Collectors.groupingBy(Dish::getType, Collectors.counting())));
+
+        //Collectors.maxBy将返回Optional，但在这里Optional可能用处不大，对于不存在的类型直接返回null即可，即需要将收集后的结果转换为另一种类型
+        System.out.println(dishes.stream().collect(Collectors.groupingBy(Dish::getType, Collectors.maxBy(Comparator.comparingInt(Dish::getCalories)))));
+
+        //将分组后收集的结果再转换成另一种类型
+        System.out.println(dishes.stream().collect(Collectors.groupingBy(Dish::getType,
+                Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparingInt(Dish::getCalories)), Optional::get))));
+
+        System.out.println(dishes.stream().collect(Collectors.toMap(Dish::getType, Function.identity(), BinaryOperator.maxBy(Comparator.comparingInt(Dish::getCalories)))));
     }
 }
