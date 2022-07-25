@@ -21,5 +21,12 @@ public class GroupDemo {
         }));
         System.out.println("-------groupByCaloricLevel");
         System.out.println(groupByCaloricLevel);
+
+        //根据类型分组后再根据卡路里等级多级分组
+        System.out.println(dishes.stream().collect(Collectors.groupingBy(Dish::getType, Collectors.groupingBy(it -> {
+            if (it.getCalories() <= 400) return CaloricLevel.DIET;
+            else if (it.getCalories() <= 700) return CaloricLevel.NORMAL;
+            else return CaloricLevel.FAT;
+        }))));
     }
 }
