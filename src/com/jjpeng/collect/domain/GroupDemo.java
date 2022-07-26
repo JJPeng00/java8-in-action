@@ -58,5 +58,13 @@ public class GroupDemo {
                                             else return CaloricLevel.FAT;
                                         },
                                         Collectors.toCollection(HashSet::new)))));
+
+
+        //分区是一种特殊的分组：使用Boolean类型作为分类器（分区函数）
+        System.out.println("-----group and partition-----");
+        Map<Boolean, List<Dish>> group = dishes.stream().collect(Collectors.groupingBy(Dish::isVegetarian));
+        System.out.println(group);
+        Map<Boolean, List<Dish>> partition = dishes.stream().collect(Collectors.partitioningBy(Dish::isVegetarian));
+        System.out.println(partition);
     }
 }
