@@ -1,6 +1,7 @@
 package com.jjpeng.collect.domain;
 
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -45,5 +46,17 @@ public class GroupDemo {
                 Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparingInt(Dish::getCalories)), Optional::get))));
 
         System.out.println(dishes.stream().collect(Collectors.toMap(Dish::getType, Function.identity(), BinaryOperator.maxBy(Comparator.comparingInt(Dish::getCalories)))));
+
+
+        //分组并指定分组的收集器（默认的分组收集器是toList()）
+        System.out.println(
+                dishes.stream().collect(
+                        Collectors.groupingBy(Dish::getType,
+                                Collectors.groupingBy(it -> {
+                                            if (it.getCalories() <= 400) return CaloricLevel.DIET;
+                                            else if (it.getCalories() <= 700) return CaloricLevel.NORMAL;
+                                            else return CaloricLevel.FAT;
+                                        },
+                                        Collectors.toCollection(HashSet::new)))));
     }
 }
